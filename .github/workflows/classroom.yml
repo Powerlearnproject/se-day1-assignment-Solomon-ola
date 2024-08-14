@@ -13,7 +13,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-
     - name: Quiz 1
       id: quiz-1
       uses: classroom-resources/autograding-io-grader@v1
@@ -31,8 +30,9 @@ jobs:
         comparison-method: exact
         timeout: 10
         max-score: 10
-
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        QUIZ-1_RESULTS: "${{steps.quiz-1.outputs.result}}"
       with:
-        results: ${{ steps.quiz-1.outputs.result }}
+        runners: quiz-1
